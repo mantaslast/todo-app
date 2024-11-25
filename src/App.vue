@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import TaskView from "@/views/TaskView.vue";
+</script>
 
 <template>
-  <div class="h-[100px] w-[100px] bg-[red]"></div>
+  <TaskView></TaskView>
 </template>
-
-<style scoped></style>
