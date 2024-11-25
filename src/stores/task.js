@@ -11,6 +11,9 @@ export const useTaskStore = defineStore("task", {
   }),
 
   actions: {
+    /**
+     * TODO: Imitate a backend call here. Retrieve fake ID
+     */
     addTask(taskData) {
       const newTask = {
         id: 20,

@@ -12,7 +12,7 @@ const author = computed(() => {
 
 <template>
   <div
-    class="flex flex-col text-[#0a0a0a] border-dashed border-b-[1px] border-b-[#ff6650]"
+    class="flex flex-col border-b-[1px] border-dashed border-b-[#ff6650] text-[#0a0a0a]"
   >
     <p>
       {{ item.title }}

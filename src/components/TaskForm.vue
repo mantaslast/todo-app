@@ -7,6 +7,9 @@ const author = ref(null);
 const taskTitle = ref("");
 
 const handleSubmit = () => {
+  /**
+   * TODO: validation?
+   */
   const formData = {
     author_id: author.value,
     title: taskTitle.value,
@@ -16,11 +19,11 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <div class="max-w-[448px] mx-auto p-[24px] bg-white rounded-[8px] shadow-md">
+  <div class="mx-auto max-w-[448px] rounded-[8px] bg-white p-[24px] shadow-md">
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="space-y-2">
         <label
-          class="text-[#666] text-[12px] font-semibold leading-[1.5] block"
+          class="block text-[12px] font-semibold leading-[1.5] text-[#666]"
           for="author"
         >
           Author
@@ -29,7 +32,7 @@ const handleSubmit = () => {
           id="author"
           v-model="author"
           name="author"
-          class="p-[16px] rounded-[8px] bg-[#fff] border-[1px] border-[#CCC] w-full"
+          class="w-full rounded-[8px] border-[1px] border-[#CCC] bg-[#fff] p-[16px]"
         >
           <option value="">Select an author</option>
           <template v-for="author in taskStore.authors">
@@ -40,7 +43,7 @@ const handleSubmit = () => {
 
       <div class="space-y-2">
         <label
-          class="text-[#666] text-[12px] font-semibold leading-[1.5] block"
+          class="block text-[12px] font-semibold leading-[1.5] text-[#666]"
           for="taskTitle"
         >
           Task Title
@@ -52,7 +55,7 @@ const handleSubmit = () => {
           name="taskTitle"
           placeholder="Enter task title"
           required
-          class="p-[16px] rounded-[8px] bg-[#fff] border-[1px] border-[#CCC] w-full"
+          class="w-full rounded-[8px] border-[1px] border-[#CCC] bg-[#fff] p-[16px]"
         />
       </div>
 
