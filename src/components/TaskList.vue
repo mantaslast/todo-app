@@ -8,15 +8,13 @@ const taskStore = useTaskStore();
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative rounded-[5px] p-[5px]">
     <Loader v-if="taskStore.isLoading"></Loader>
-    <div v-else>
-      <TaskListFilters class="mb-[20px]"></TaskListFilters>
-      <div class="flex gap-[20px]">
-        <template v-for="column in taskStore.taskData">
-          <TaskListColumn :column="column"></TaskListColumn>
-        </template>
-      </div>
+    <TaskListFilters class="mb-[20px]"></TaskListFilters>
+    <div class="flex gap-[20px]">
+      <template v-for="column in taskStore.taskData">
+        <TaskListColumn :column="column"></TaskListColumn>
+      </template>
     </div>
   </div>
 </template>

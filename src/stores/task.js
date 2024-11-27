@@ -11,6 +11,12 @@ export const useTaskStore = defineStore("task", {
   }),
 
   actions: {
+    updateTask(taskId, taskData) {
+      const task = this.tasks.find((task) => task.id === taskId);
+      if (task) {
+        Object.assign(task, taskData);
+      }
+    },
     async addTask(taskData) {
       this.isLoading = true;
       try {

@@ -34,7 +34,7 @@ export const httpProvider = {
        * Imitate DB generated ID;
        */
       id: uuidv4(),
-      created_at: new Date().toISOString().split("T")[0],
+      date_created: new Date().toISOString().split("T")[0],
       current_column: TASK_STATUS.TODO,
     };
   },

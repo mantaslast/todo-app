@@ -1,9 +1,14 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import { useDraggable } from "@/composables/useDraggable";
 
 const props = defineProps({
   item: Object,
 });
+
+const taskItemRef = ref(null);
+
+useDraggable(taskItemRef, props.item);
 
 const author = computed(() => {
   return props.item.author ? props.item.author : {};
@@ -12,13 +17,13 @@ const author = computed(() => {
 
 <template>
   <div
-    class="flex flex-col border-b-[1px] border-dashed border-[#000] p-[8px] text-[#0a0a0a]"
+    ref="taskItemRef"
+    class="flex flex-col rounded-[6px] border-[1px] border-dashed border-[#989a9e] p-[8px] text-[#0a0a0a]"
   >
-    <p class="mb-[4px] text-[18px] leading-[normal]">
+    <p class="mb-[8px] text-[15px] leading-[normal]">
       {{ item.title }}
     </p>
-    <p class="text-[14px]">
-      Created at {{ item.created_at }} by {{ author.display_name }}
-    </p>
+    <p class="text-[12px]">Created at {{ item.date_created }}</p>
+    <p class="text-[12px]">Created by {{ author.display_name }}</p>
   </div>
 </template>
