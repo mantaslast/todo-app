@@ -1,20 +1,33 @@
 <script setup>
 import { useTaskStore } from "@/stores/task";
-import { ref } from "vue";
+import { reactive } from "vue";
 
 const taskStore = useTaskStore();
-const author = ref(null);
-const taskTitle = ref("");
+
+const initialTaskFormState = {
+  author: "",
+  taskTitle: "",
+};
+
+const taskForm = reactive({ ...initialTaskFormState });
 
 const handleSubmit = async () => {
-  /**
-   * TODO: validation?
-   */
   const formData = {
-    author_id: author.value,
-    title: taskTitle.value,
+    author_id: taskForm.author,
+    title: taskForm.taskTitle,
   };
-  await taskStore.addTask(formData);
+
+  try {
+    await taskStore.addTask(formData);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    resetTaskForm();
+  }
+};
+
+const resetTaskForm = () => {
+  Object.assign(taskForm, initialTaskFormState);
 };
 </script>
 
@@ -30,11 +43,12 @@ const handleSubmit = async () => {
         </label>
         <select
           id="author"
-          v-model="author"
+          v-model="taskForm.author"
           name="author"
+          required
           class="w-full rounded-[8px] border-[1px] border-[#CCC] bg-[#fff] p-[16px]"
         >
-          <option value="">Select an author</option>
+          <option value="" disabled>Select an author</option>
           <template v-for="author in taskStore.authors">
             <option :value="author.id">{{ author.display_name }}</option>
           </template>
@@ -51,7 +65,7 @@ const handleSubmit = async () => {
         <input
           type="text"
           id="taskTitle"
-          v-model="taskTitle"
+          v-model="taskForm.taskTitle"
           name="taskTitle"
           placeholder="Enter task title"
           required

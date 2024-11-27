@@ -21,7 +21,8 @@ const columnBgColor = computed(() => {
     >
       {{ column.name }}
     </div>
-    <template v-for="task in column.tasks">
+    <div v-if="!column.tasks.length">No tasks found</div>
+    <template v-else v-for="task in column.tasks">
       <TaskItem :item="task"></TaskItem>
     </template>
   </div>

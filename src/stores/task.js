@@ -7,12 +7,10 @@ export const useTaskStore = defineStore("task", {
     columns: [],
     authors: [],
     tasks: [],
+    filters: {},
   }),
 
   actions: {
-    /**
-     * TODO: Imitate a backend call here. Retrieve fake ID
-     */
     async addTask(taskData) {
       this.isLoading = true;
       try {
@@ -39,10 +37,15 @@ export const useTaskStore = defineStore("task", {
         this.isLoading = false;
       }
     },
+    setFilters(filterType, filterValue) {
+      this.filters[filterType] = filterValue;
+    },
   },
   getters: {
     taskData(state) {
       const { authors, columns, tasks } = state;
+
+      const filteredTasks = applyFilters(tasks, state.filters);
 
       const authorMap = authors.reduce((acc, author) => {
         acc[author.id] = author;
@@ -51,7 +54,7 @@ export const useTaskStore = defineStore("task", {
 
       const mappedData = columns.map((column) => ({
         name: column,
-        tasks: tasks
+        tasks: filteredTasks
           .filter((task) => task.current_column === column)
           .map((task) => ({
             ...task,
@@ -63,3 +66,22 @@ export const useTaskStore = defineStore("task", {
     },
   },
 });
+
+const applyFilters = (tasks, filters) => {
+  return Object.entries(filters).reduce(
+    (filteredTasks, [filterType, filterValue]) => {
+      if (!filterValue) return filteredTasks;
+
+      const filterFunctions = {
+        title: (task) =>
+          task.title.toLowerCase().includes(filterValue.toLowerCase()),
+        author_id: (task) => task.author_id === filterValue,
+      };
+
+      return filterFunctions[filterType]
+        ? filteredTasks.filter(filterFunctions[filterType])
+        : filteredTasks;
+    },
+    tasks,
+  );
+};
