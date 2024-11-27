@@ -1,9 +1,5 @@
 # Vue.js Kanban Board
 
-## Preview
-
-![Demo](./preview.gif)
-
 ## Improvements
 
 - Form validation;
