@@ -8,6 +8,7 @@
 
 - Form validation;
 - When task is dropped on a different column, display the task on top of the list;
+- Custom, reusable components for input elements;
 
 ## Available Scripts
 
