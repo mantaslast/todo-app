@@ -12,11 +12,13 @@ const author = computed(() => {
 
 <template>
   <div
-    class="flex flex-col border-b-[1px] border-dashed border-b-[#ff6650] text-[#0a0a0a]"
+    class="flex flex-col border-b-[1px] border-dashed border-[#000] p-[8px] text-[#0a0a0a]"
   >
-    <p>
+    <p class="mb-[4px] text-[18px] leading-[normal]">
       {{ item.title }}
     </p>
-    <p>Created at {{ item.created_at }} by {{ author.display_name }}</p>
+    <p class="text-[14px]">
+      Created at {{ item.created_at }} by {{ author.display_name }}
+    </p>
   </div>
 </template>

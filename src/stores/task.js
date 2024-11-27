@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { httpProvider } from "@/core/httpProvider";
-import { TASK_STATUS } from "@/constants";
 
 export const useTaskStore = defineStore("task", {
   state: () => ({
@@ -14,16 +13,18 @@ export const useTaskStore = defineStore("task", {
     /**
      * TODO: Imitate a backend call here. Retrieve fake ID
      */
-    addTask(taskData) {
-      const newTask = {
-        id: 20,
-        created_at: new Date().toISOString().split("T")[0],
-        current_column: TASK_STATUS.TODO,
-        ...taskData,
-      };
+    async addTask(taskData) {
+      this.isLoading = true;
+      try {
+        const newTask = await httpProvider.post("/api/task/create", taskData);
+        this.tasks.unshift(newTask);
 
-      this.tasks.unshift(newTask);
-      return newTask;
+        return newTask;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.isLoading = false;
+      }
     },
     async fetchTaskData() {
       this.isLoading = true;

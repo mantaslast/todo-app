@@ -6,7 +6,7 @@ const taskStore = useTaskStore();
 const author = ref(null);
 const taskTitle = ref("");
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   /**
    * TODO: validation?
    */
@@ -14,7 +14,7 @@ const handleSubmit = () => {
     author_id: author.value,
     title: taskTitle.value,
   };
-  taskStore.addTask(formData);
+  await taskStore.addTask(formData);
 };
 </script>
 
@@ -60,6 +60,7 @@ const handleSubmit = () => {
       </div>
 
       <button
+        :disabled="taskStore.isLoading"
         type="submit"
         class="w-full rounded-[8px] bg-[#7A5CFA] py-[10px] text-[#fff]"
       >
